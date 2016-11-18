@@ -2052,12 +2052,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/asimonf/SupervisorBundle.git",
-                "reference": "20cf2913925dd01ff6f70b62b90df06ce2f6a99e"
+                "reference": "997488f8f9f7b3a8dc273b9420a8d65079ac9555"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/asimonf/SupervisorBundle/zipball/20cf2913925dd01ff6f70b62b90df06ce2f6a99e",
-                "reference": "20cf2913925dd01ff6f70b62b90df06ce2f6a99e",
+                "url": "https://api.github.com/repos/asimonf/SupervisorBundle/zipball/997488f8f9f7b3a8dc273b9420a8d65079ac9555",
+                "reference": "997488f8f9f7b3a8dc273b9420a8d65079ac9555",
                 "shasum": ""
             },
             "require": {
