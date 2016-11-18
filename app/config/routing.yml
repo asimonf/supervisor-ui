@@ -1,0 +1,3 @@
+YZSupervisorBundle:
+    resource: "@YZSupervisorBundle/Resources/config/routing.xml"
+    prefix: /supervisor
