@@ -2,11 +2,12 @@
 
 namespace AppBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
-class AppBundleExtension extends Extension implements PrependExtensionInterface
+class AppExtension extends Extension implements PrependExtensionInterface
 {
 
     /**
@@ -19,6 +20,8 @@ class AppBundleExtension extends Extension implements PrependExtensionInterface
      */
     public function load(array $configs, ContainerBuilder $container)
     {
+        $configuration = new Configuration();
+        $config = $this->processConfiguration($configuration, $configs);
     }
 
     /**
@@ -32,7 +35,7 @@ class AppBundleExtension extends Extension implements PrependExtensionInterface
         $bundles = $container->getParameter('kernel.bundles');
 
         // determine if SupervisorBundle is registered
-        if (isset($bundles['SupervisorBundle'])) {
+        if (!isset($bundles['SupervisorBundle'])) {
             // process the configuration of AcmeHelloExtension
             $configs = $container->getExtensionConfig($this->getAlias());
             // use the Configuration class to generate a config array
@@ -40,13 +43,22 @@ class AppBundleExtension extends Extension implements PrependExtensionInterface
 
             $servers = [];
             if (isset($config['supervisor_hostname'])) {
-                $records = dns_get_record($config['supervisor_hostname'], DNS_A);
+                $records = @dns_get_record($config['supervisor_hostname'], DNS_A);
 
-                $index = 0;
-                foreach ($records as $record) {
-                    $curr = sprintf('%02d', $index++);
-                    $servers["supervisor_$curr"] = [
-                        'host' => $record['ip'],
+                if ($records !== FALSE) {
+                    $index = 0;
+                    foreach ($records as $record) {
+                        $curr = sprintf('%02d', $index++);
+                        $servers["supervisor_$curr"] = [
+                            'host' => $record['ip'],
+                            'port' => $config['supervisor_port'],
+                            'username' => $config['supervisor_username'],
+                            'password' => $config['supervisor_password'],
+                        ];
+                    }
+                } else {
+                    $servers["supervisor_00"] = [
+                        'host' => '127.0.0.1',
                         'port' => $config['supervisor_port'],
                         'username' => $config['supervisor_username'],
                         'password' => $config['supervisor_password'],

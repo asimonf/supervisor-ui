@@ -2,7 +2,7 @@
 
 namespace AppBundle\DependencyInjection;
 
-
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class Configuration implements ConfigurationInterface
@@ -19,10 +19,11 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-            ->scalarNode('supervisor_hostname')->end()
-            ->scalarNode('supervisor_port')->end()
-            ->scalarNode('supervisor_username')->end()
-            ->scalarNode('supervisor_password')->end()
+                ->scalarNode('supervisor_hostname')->end()
+                ->scalarNode('supervisor_port')->end()
+                ->scalarNode('supervisor_username')->end()
+                ->scalarNode('supervisor_password')->end()
+            ->end()
         ;
 
         return $treeBuilder;
