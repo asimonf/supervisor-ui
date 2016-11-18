@@ -43,7 +43,12 @@ class AppExtension extends Extension implements PrependExtensionInterface
 
             $servers = [];
             if (isset($config['supervisor_hostname'])) {
-                $records = @dns_get_record($config['supervisor_hostname'], DNS_A);
+                if (preg_match('|^%(.*)%$|', $config['supervisor_hostname'], $matches)) {
+                    $hostname = $container->getParameter($matches[1]);
+                } else {
+                    $hostname = $config['supervisor_hostname'];
+                }
+                $records = @dns_get_record($hostname, DNS_A);
 
                 if ($records !== FALSE) {
                     $index = 0;
