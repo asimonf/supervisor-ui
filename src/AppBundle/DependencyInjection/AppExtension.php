@@ -71,12 +71,14 @@ class AppExtension extends Extension implements PrependExtensionInterface
                 }
             }
 
-            $supervisorConfig = [
-                'default_environment' => 'auto',
-                'servers' => [
-                    'auto' => $servers
-                ]
-            ];
+            if (count($servers) > 0) {
+                $supervisorConfig = [
+                    'default_environment' => 'auto',
+                    'servers' => [
+                        'auto' => $servers
+                    ]
+                ];
+            }
 
             $container->prependExtensionConfig('yz_supervisor', $supervisorConfig);
         }
