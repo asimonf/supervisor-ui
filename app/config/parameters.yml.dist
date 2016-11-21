@@ -19,3 +19,4 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     supervisor_hostname: php5-backend.default
+    admin_password: optPass
