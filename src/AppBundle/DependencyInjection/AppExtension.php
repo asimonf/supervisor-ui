@@ -50,7 +50,7 @@ class AppExtension extends Extension implements PrependExtensionInterface
                 }
                 $records = @dns_get_record($hostname, DNS_A);
 
-                if ($records !== FALSE) {
+                if ($records) {
                     $index = 0;
                     foreach ($records as $record) {
                         $curr = sprintf('%02d', $index++);
