@@ -78,9 +78,9 @@ class AppExtension extends Extension implements PrependExtensionInterface
                         'auto' => $servers
                     ]
                 ];
-            }
 
-            $container->prependExtensionConfig('yz_supervisor', $supervisorConfig);
+                $container->prependExtensionConfig('yz_supervisor', $supervisorConfig);
+            }
         }
     }
 }
